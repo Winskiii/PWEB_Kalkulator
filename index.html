@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <style>
+        .calculator {
+            width: 200px;
+            margin: 0 auto;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+        }
+
+        input {
+            width: 87%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .red {
+            background-color: rgb(234, 208, 151);
+            color: rgb(14, 14, 14);
+        }
+
+        .blue {
+            background-color: blue;
+            color: white;
+        }
+
+        .orange {
+            background-color: orange;
+            color: white;
+        }
+
+        .green {
+            background-color: green;
+            color: white;
+        }
+
+        .black {
+            background-color: black;
+            color: white;
+        }
+
+        button:hover {
+            background-color: rgba(5, 23, 23, 0.33);
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator" id="app">
+        <input type="text" v-model="expression" readonly>
+        <div class="grid-container">
+            <button class="red" v-on:click="appendToExpression('7')">7</button>
+            <button class="red" v-on:click="appendToExpression('8')">8</button>
+            <button class="red" v-on:click="appendToExpression('9')">9</button>
+            <button class="blue" v-on:click="appendToExpression('/')">/</button>
+            <button class="red" v-on:click="appendToExpression('4')">4</button>
+            <button class="red" v-on:click="appendToExpression('5')">5</button>
+            <button class="red" v-on:click="appendToExpression('6')">6</button>
+            <button class="blue" v-on:click="appendToExpression('*')">x</button>
+            <button class="red" v-on:click="appendToExpression('1')">1</button>
+            <button class="red" v-on:click="appendToExpression('2')">2</button>
+            <button class="red" v-on:click="appendToExpression('3')">3</button>
+            <button class="blue" v-on:click="appendToExpression('-')">-</button>
+            <button class="green" v-on:click="calculate()">=</button>
+            <button class="black" v-on:click="appendToExpression('0')">0</button>
+            <button class="red" v-on:click="appendToExpression('.')">.</button>
+            <button class="blue" v-on:click="appendToExpression('+')">+</button>
+            <button class="orange" v-on:click="clear()">C</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                expression: ''
+            },
+            methods: {
+                appendToExpression(character) {
+                    this.expression += character;
+                },
+                calculate() {
+                    try {
+                        this.expression = eval(this.expression).toString();
+                    } catch (error) {
+                        this.expression = 'Error';
+                    }
+                },
+                clear() {
+                    this.expression = '';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
